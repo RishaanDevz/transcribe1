@@ -77,7 +77,7 @@ def ask_question(text, question):
 
 # Streamlit app
 def main():
-    st.title("audioscribe.io")
+    st.title("transcriber1")
 
     # Initialize session state to store transcription and summary
     if "transcription_text" not in st.session_state:
