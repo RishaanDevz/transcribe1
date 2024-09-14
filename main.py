@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-from dotenv import load_dotenv  # Import to load environment variables
+from dotenv import load_dotenv
 from groq import Groq
 
 # Load environment variables from .env file
@@ -13,7 +13,6 @@ if not api_key:
 else:
     client = Groq(api_key=api_key)
 
-
 # Step 1: Transcribe the audio file using Whisper
 def transcribe_audio(file_path):
     with open(file_path, "rb") as file:
@@ -25,7 +24,6 @@ def transcribe_audio(file_path):
             temperature=0.0
         )
         return transcription.text
-
 
 # Step 2: Summarize the transcription using the LLM
 def summarize_text(text):
@@ -50,7 +48,6 @@ def summarize_text(text):
 
     return summary
 
-
 # Step 3: Handle user questions based on transcription and summary
 def ask_question(text, question):
     completion = client.chat.completions.create(
@@ -74,10 +71,12 @@ def ask_question(text, question):
 
     return answer
 
-
 # Streamlit app
 def main():
-    st.title("transcriber1")
+    # Center the image
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        st.image("icon.png", width=300)  # Adjust the file path and width as needed
 
     # Initialize session state to store transcription and summary
     if "transcription_text" not in st.session_state:
@@ -122,7 +121,6 @@ def main():
                 st.write(response)
             else:
                 st.write("Please enter a question.")
-
 
 if __name__ == "__main__":
     main()
